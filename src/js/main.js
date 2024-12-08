@@ -3,12 +3,12 @@
 # needed for jekyll to interpret liquid
 ---
 
-const Dropzone = require ('dropzone');
+const Dropzone = require('dropzone');
 const fabric = require('fabric').fabric;
 
 Dropzone.autoDiscover = false;
 
-document.addEventListener("DOMContentLoaded", function(){
+document.addEventListener("DOMContentLoaded", function () {
 
   // define the canvas
   const canvas = this.__canvas = new fabric.Canvas('c', {
@@ -34,20 +34,20 @@ document.addEventListener("DOMContentLoaded", function(){
   });
 
   // handle the canvas controls and overlay
-  (function() {
+  (function () {
     fabric.Object.prototype.transparentCorners = false;
 
-    var $ = function(id){return document.getElementById(id)};
+    var $ = function (id) { return document.getElementById(id) };
 
     var angleControl = $('angle-control');
-    angleControl.oninput = function() {
+    angleControl.oninput = function () {
       image.set('angle', parseInt(this.value, 10)).setCoords();
       canvas.requestRenderAll();
     };
 
     var scaleControl = $('scale-control');
-    scaleControl.oninput = function() {
-      image.scale(parseFloat(this.value)/200).setCoords();
+    scaleControl.oninput = function () {
+      image.scale(parseFloat(this.value) / 200).setCoords();
       canvas.requestRenderAll();
     };
 
@@ -62,26 +62,26 @@ document.addEventListener("DOMContentLoaded", function(){
       'object:rotating': updateControls,
     });
 
-    canvas.setOverlayImage("{{ 'img/frames/frame-1.png' | relative_url }}" , function() {
-        canvas.overlayImage.scaleToWidth(canvas.getWidth())
-        canvas.renderAll()
-      }, {
-        originX: 'left',
-        originY: 'top',
-        crossOrigin: 'anonymous'
+    canvas.setOverlayImage("{{ 'img/frames/frame-1.png' | relative_url }}", function () {
+      canvas.overlayImage.scaleToWidth(canvas.getWidth())
+      canvas.renderAll()
+    }, {
+      originX: 'left',
+      originY: 'top',
+      crossOrigin: 'anonymous'
     });
 
   })();
 
   var reader = new FileReader();
-  reader.onload = function(event) {
+  reader.onload = function (event) {
 
     var imgObj = new Image();
     imgObj.src = event.target.result;
 
-    fabric.util.loadImage(imgObj.src, function() {
-    image = new fabric.Image(imgObj);
-    image.set({
+    fabric.util.loadImage(imgObj.src, function () {
+      image = new fabric.Image(imgObj);
+      image.set({
         lockMovementX: false,
         lockMovementY: false,
         lockScalingX: false,
@@ -94,7 +94,7 @@ document.addEventListener("DOMContentLoaded", function(){
         cornerSize: 30,
         lockSkewingX: true,
         lockSkewingY: true,
-        originX: "center", 
+        originX: "center",
         originY: "center",
         hasControls: false,
       });
@@ -112,7 +112,7 @@ document.addEventListener("DOMContentLoaded", function(){
   // call the reader to add it to the canvas
   // enable the download button and controls
   // remove the upload text
-  imgUpload.on("addedfile", function(file) {
+  imgUpload.on("addedfile", function (file) {
     reader.readAsDataURL(file);
     document.getElementById("download").disabled = false;
     document.getElementById("angle-control").disabled = false;
@@ -124,7 +124,7 @@ document.addEventListener("DOMContentLoaded", function(){
   // remove it from the canvas
   // disable the download button and controls
   // re-add the upload text
-  imgUpload.on("removedfile", function() {
+  imgUpload.on("removedfile", function () {
     canvas.remove(image);
     document.getElementById("download").disabled = true;
     document.getElementById("angle-control").disabled = true;
@@ -148,14 +148,14 @@ document.addEventListener("DOMContentLoaded", function(){
   // handle download
   // create a link and simulate a click to download the file
   var download = document.getElementById("download");
-  download.addEventListener('click', function() {
-    var e = canvas.toDataURL({ format: "jpeg", quality: 1, multiplier: 4});
+  download.addEventListener('click', function () {
+    var e = canvas.toDataURL({ format: "jpeg", quality: 1, multiplier: 4 });
     if (window.URL && e) {
-        if (window.navigator.msSaveOrOpenBlob) window.navigator.msSaveOrOpenBlob(t, "profile-pic.jpeg");
-        else {
-            var r = document.createElement("a");
-            (r.href = e), (r.download = "profile-pic.jpeg"), document.body.appendChild(r), r.click(), document.body.removeChild(r);
-        }
+      if (window.navigator.msSaveOrOpenBlob) window.navigator.msSaveOrOpenBlob(t, "profile-pic.jpeg");
+      else {
+        var r = document.createElement("a");
+        (r.href = e), (r.download = "profile-pic.jpeg"), document.body.appendChild(r), r.click(), document.body.removeChild(r);
+      }
     }
   }, false);
 });
@@ -177,16 +177,16 @@ function changeFrame(canvas, image) {
   if (image.startsWith('/')) {
     image = image.substring(1);
   }
-  canvas.setOverlayImage(image, function() {
-        canvas.overlayImage.scaleToWidth(canvas.getWidth())
-        canvas.renderAll()
-      }, {
-        originX: 'left',
-        originY: 'top',
-        crossOrigin: 'anonymous'
-    });
+  canvas.setOverlayImage(image, function () {
+    canvas.overlayImage.scaleToWidth(canvas.getWidth())
+    canvas.renderAll()
+  }, {
+    originX: 'left',
+    originY: 'top',
+    crossOrigin: 'anonymous'
+  });
 }
 
-window.addEventListener('resize', function() {
+window.addEventListener('resize', function () {
   resizeCanvas();
 });

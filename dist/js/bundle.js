@@ -33633,12 +33633,14 @@
     document.getElementById("frame-1").addEventListener("click", function () {
       changeFrame(canvas, 'img/frames/frame-1.png');
     });
-    document.getElementById("frame-2").addEventListener("click", function () {
-      changeFrame(canvas, 'img/frames/frame-2.png');
-    });
-    document.getElementById("frame-3").addEventListener("click", function () {
-      changeFrame(canvas, 'img/frames/frame-3.png');
-    }); // handle download
+
+    
+    // document.getElementById("frame-2").addEventListener("click", function () {
+    //   changeFrame(canvas, 'img/frames/frame-2.png');
+    // });
+    // document.getElementById("frame-3").addEventListener("click", function () {
+    //   changeFrame(canvas, 'img/frames/frame-3.png');
+    // }); // handle download
     // create a link and simulate a click to download the file
   
     var download = document.getElementById("download");
